@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     TextView timeStringView;
     SeekBar timeControl;
     MediaPlayer mediaPlayer;
+    CountDownTimer myCount;
 
     int timeInSeconds;
     boolean isStop;
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(final SeekBar seekBar) {
 
-                new CountDownTimer( timeInSeconds*1000, 1000) {
+                myCount = new CountDownTimer( timeInSeconds*1000,
+                        1000) {
 
                     public void onTick(long millisecondsUntilDone) {
 
@@ -87,8 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
                         mediaPlayer.start();
 
+                        timeStringView.setText("0:00");
+
                         Toast.makeText(getApplicationContext(),
-                                "done", Toast.LENGTH_SHORT).show();
+                                "Hooray!", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -114,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
             isStop = false;
             button.setText("Go!");
             timeControl.setEnabled(true);
+            myCount.cancel();
 
         }
 
